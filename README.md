@@ -8,7 +8,7 @@ docker run -it redteam /bin/bash
 
 # Tools
 - Penetration Testers Framework
-- Metasploint
+- Metasploit Framework
 - NMAP
 - recon-ng
 - sqlmap
