@@ -284,14 +284,17 @@ RUN curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/conf
     rm -f ${HOME}/msfinstall
 
 # penetration testers framework
-RUN wget http://http.kali.org/pool/main/u/unicornscan/unicornscan_0.4.7-1kali2_amd64.deb && \
-    dpkg -i ./unicornscan_0.4.7-1kali2_amd64.deb && \
-    rm -f ${HOME}/unicornscan_0.4.7-1kali2_amd64.deb && \
-    cd ${HOME}/toolkit && \
+RUN cd ${HOME}/toolkit && \
     git clone https://github.com/trustedsec/ptf.git && \
     cd ptf && \
-    echo -en "use modules/install_update_all\nyes\n" | python333 ptf && \
+    echo -en "use modules/install_update_all\nyes\n" | python3 ptf && \
+    echo && \
+    echo && \
+    echo "** DONE **" && \
     echo "PTF is built and ready to use."
+COPY ptf.sh /opt
+RUN chmod +x /opt/ptf.sh && \
+    ln -sf /opt/ptf.sh /usr/local/bin/ptf
 
 # word lists
 #RUN cd ${HOME}/wordlists && \
