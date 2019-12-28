@@ -286,7 +286,8 @@ RUN curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/conf
 # penetration testers framework
 RUN mkdir -p /root/config
 COPY ptf.config /root/config/
-RUN cd ${HOME}/toolkit && \
+RUN RUN pip install pexpect && \
+    cd ${HOME}/toolkit && \
     git clone https://github.com/trustedsec/ptf.git && \
     cd ptf/ && \
     echo -en "use modules/install_update_all\nyes\n" | python3 ptf && \
