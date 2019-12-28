@@ -1,4 +1,4 @@
-# redteam_conatiner
+# redteam_container
 Ubuntu 18.04 based container with lots of tools
 
 docker build -t redteam .
