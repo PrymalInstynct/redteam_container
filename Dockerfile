@@ -286,16 +286,14 @@ RUN curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/conf
 # penetration testers framework
 RUN mkdir -p /root/config
 COPY ptf.config /root/config/
-
 RUN cd ${HOME}/toolkit && \
     git clone https://github.com/trustedsec/ptf.git && \
-    cd ptf && \
+    cd ptf/ && \
     echo -en "use modules/install_update_all\nyes\n" | python3 ptf && \
     echo && \
     echo && \
     echo "** DONE **" && \
     echo "PTF is built and ready to use."
-
 COPY ptf.sh /opt
 RUN chmod +x /opt/ptf.sh && \
     ln -sf /opt/ptf.sh /usr/local/bin/ptf
