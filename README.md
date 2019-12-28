@@ -6,7 +6,7 @@ docker build -t redteam .
 docker run -it redteam /bin/bash
 
 # Tools
--Penetration Testers Framework
--Metasploint
--NMAP
--recon-ng
+- Penetration Testers Framework
+- Metasploint
+- NMAP
+- recon-ng
