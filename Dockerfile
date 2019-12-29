@@ -283,6 +283,11 @@ RUN curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/conf
     ./msfinstall && \
     rm -f ${HOME}/msfinstall
 
+# unicornscan
+RUN wget http://http.kali.org/pool/main/u/unicornscan/unicorn
+    dpkg -i ./unicornscan_0.4.7-1kali2_amd64.deb && \
+    rm -f ${HOME}/unicornscan_0.4.7-1kali2_amd64.deb
+
 # penetration testers framework
 RUN mkdir -p /root/config
 COPY ptf.config /root/config/
