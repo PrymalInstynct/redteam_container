@@ -291,7 +291,8 @@ RUN wget http://http.kali.org/pool/main/u/unicornscan/unicorn
 # penetration testers framework
 RUN mkdir -p /root/config
 COPY ptf.config /root/config/
-RUN RUN pip install pexpect && \
+RUN pip install pexpect && \
+    pip3 install pexpect && \
     cd ${HOME}/toolkit && \
     git clone https://github.com/trustedsec/ptf.git && \
     cd ptf/ && \
