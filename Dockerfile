@@ -305,6 +305,10 @@ COPY ptf.sh /opt
 RUN chmod +x /opt/ptf.sh && \
     ln -sf /opt/ptf.sh /usr/local/bin/ptf
 
+##########################
+### Install Word Lists ###
+##########################
+
 # word lists
 #RUN cd ${HOME}/wordlists && \
 #    git clone --depth 1 https://github.com/danielmiessler/SecLists.git
