@@ -226,14 +226,6 @@ RUN cd ${HOME}/toolkit && \
     chmod +x theHarvester.py && \
     ln -sf ${HOME}/toolkit/theHarvester/theHarvester.py /usr/local/bin/theharvester
 
-# CloudFlair
-RUN cd ${HOME}/toolkit && \
-    git clone https://github.com/christophetd/CloudFlair.git && \
-    cd CloudFlair && \
-    pip install -r requirements.txt && \
-    chmod +x cloudflair.py && \
-    ln -sf ${HOME}/toolkit/CloudFlair/cloudflair.py /usr/local/bin/cloudflair
-
 # joomscan
 RUN cd ${HOME}/toolkit && \
     git clone https://github.com/rezasp/joomscan.git && \

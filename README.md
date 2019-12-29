@@ -44,7 +44,6 @@ docker run -it --name redteam redteam /bin/bash
 - teh_s3_bucketeers
 - XSStrike
 - theHarvester
-- CloudFlair
 - joomscan
 - gobuster
 - virtual-host-discovery
