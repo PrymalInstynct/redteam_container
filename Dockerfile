@@ -1,6 +1,6 @@
-FROM ubuntu:18.04
+FROM debian:sid
 
-LABEL maintainer="chad.zimmerman@lmco.com"
+LABEL maintainer="zimzamfam@gmail.com"
 LABEL description="Forked from https://hub.docker.com/r/hackersploit/bugbountytoolkit"
 
 # Environment Variables
@@ -12,6 +12,10 @@ ENV TIMEZONE=Etc/UTC
 WORKDIR /root
 RUN mkdir ${HOME}/toolkit && \
     mkdir ${HOME}/wordlists
+
+# Enable Non-Free Debian sid repos
+RUN sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list && \
+    apt-get update
 
 # Install apt-utils
 RUN apt-get update && \
@@ -279,30 +283,37 @@ RUN pip3 install --upgrade setuptools && \
     pip3 install pyyaml pymongo requests s3recon
 
 # metasploit-framework
-RUN curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
+RUN cd ${HOME} && \
+    curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
     chmod 755 msfinstall && \
     ./msfinstall && \
     rm -f ${HOME}/msfinstall
 
 # unicornscan
-RUN wget http://http.kali.org/pool/main/u/unicornscan/unicornscan_0.4.7-1kali2_amd64.deb && \
+RUN cd ${HOME} && \
+    wget http://http.kali.org/pool/main/u/unicornscan/unicornscan_0.4.7-1kali2_amd64.deb && \
     dpkg -i ./unicornscan_0.4.7-1kali2_amd64.deb && \
     rm -f ${HOME}/unicornscan_0.4.7-1kali2_amd64.deb
 
 # penetration testers framework
-RUN mkdir -p /root/config
-COPY ptf.config /root/config/
-RUN pip install pexpect && \
-    pip3 install pexpect && \
-    cd ${HOME}/toolkit && \
-    git clone https://github.com/trustedsec/ptf.git && \
-    cd ptf/ && \
-    echo -en "use modules/install_update_all\nyes\n" | python3 ptf && \
-    echo && \
-    echo && \
-    echo "** DONE **" && \
-    echo "PTF is built and ready to use." && \
-    ln -sf ${HOME}/toolkit/ptf/ptf /usr/local/bin/ptf
+COPY ptf_bootstrap.sh /root/ptf_bootstrap.sh
+RUN chmod +x /root/ptf_boostrap.sh && \
+    bash -c /root/ptf_bootstrap.sh && \
+    rm -f /root/ptf_bootstrap.sh
+
+#RUN mkdir -p /root/config
+#COPY ptf.config /root/config/
+#RUN pip install pexpect && \
+#    pip3 install pexpect && \
+#    cd ${HOME} && \
+#    git clone https://github.com/trustedsec/ptf.git && \
+#    cd ptf/ && \
+#    echo -en "use modules/install_update_all\nyes\n" | python3 ptf && \
+#    echo && \
+#    echo && \
+#    echo "** DONE **" && \
+#    echo "PTF is built and ready to use." && \
+#    ln -sf ${HOME}/ptf/ptf /usr/local/bin/ptf
 
 ##########################
 ### Install Word Lists ###
