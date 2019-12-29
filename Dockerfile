@@ -77,7 +77,7 @@ RUN ln -fs /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
 
 # configure python(s)
 RUN python -m pip install --upgrade setuptools && python3 -m pip install --upgrade setuptools && python3.7 -m pip install --upgrade setuptools
-RUN pip install wheel
+RUN python -m pip install wheel && python3 -m pip install wheel && python3.7 -m pip install wheel && pip3 install wheel
 
 #####################
 ### Install Tools ###
