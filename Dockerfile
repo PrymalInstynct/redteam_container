@@ -1,4 +1,5 @@
 FROM debian:sid
+# FROM ubuntu:1804
 
 LABEL maintainer="zimzamfam@gmail.com"
 LABEL description="Forked from https://hub.docker.com/r/hackersploit/bugbountytoolkit"
@@ -111,6 +112,7 @@ RUN apt-get update && \
     bzip2 \
     unrar \
     rar \
+    unzip \
     tcpreplay \
     tcpick \
     socat \
@@ -297,7 +299,7 @@ RUN cd ${HOME} && \
 
 # penetration testers framework
 COPY ptf_bootstrap.sh /root/ptf_bootstrap.sh
-RUN chmod +x /root/ptf_boostrap.sh && \
+RUN chmod +x /root/ptf_bootstrap.sh && \
     bash -c /root/ptf_bootstrap.sh && \
     rm -f /root/ptf_bootstrap.sh
 
