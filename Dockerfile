@@ -302,14 +302,14 @@ RUN mkdir -p ${AVBYPASS}
 # backdoor factory
 RUN cd ${AVBYPASS} && \
     git clone https://github.com/secretsquirrel/the-backdoor-factory.git && \
-    cd the-backdoor-factory && \
+    cd ${AVBYPASS}/the-backdoor-factory && \
     chmod +x install.sh && \
-    install.sh
+    ./install.sh
 
 # pyobfuscate
 RUN cd ${AVBYPASS} && \
     git clone https://github.com/astrand/pyobfuscate.git && \
-    cd pyobfuscate && \
+    cd ${AVBYPASS}/pyobfuscate && \
     python setup.py install
 
 # shellter
@@ -325,7 +325,7 @@ RUN cd ${AVBYPASS} && \
 
 # unlock
 RUN cd ${AVBYPASS} && \
-    git clone https://github.com/freshness79/unlock.git && \
+    git clone https://github.com/freshness79/unlock.git
     
 ##################
 ### Code Audit ###
@@ -341,7 +341,7 @@ RUN cd ${CODEAUDIT} && \
 RUN cd ${CODEAUDIT} && \
     wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/rough-auditing-tool-for-security/rats-2.4.tgz && \
     tar xzf rats-2.4.tgz && \
-    cd rats && \
+    cd ${CODEAUDIT}/rats && \
     ./configure && \
     make -j4 && \
     make install
@@ -349,7 +349,7 @@ RUN cd ${CODEAUDIT} && \
 # splint
 RUN cd ${CODEAUDIT} && \
     git clone https://github.com/splintchecker/splint.git && \
-    cd splint && \
+    cd ${CODEAUDIT}/splint && \
     ./configure && \
     make -j4 && \
     make install
