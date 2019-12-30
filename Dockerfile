@@ -1,5 +1,4 @@
 FROM debian:sid
-# FROM ubuntu:1804
 
 LABEL maintainer="zimzamfam@gmail.com"
 LABEL description="Forked from https://hub.docker.com/r/hackersploit/bugbountytoolkit"
@@ -289,25 +288,78 @@ RUN cd ${HOME} && \
     dpkg -i ./unicornscan_0.4.7-1kali2_amd64.deb && \
     rm -f ${HOME}/unicornscan_0.4.7-1kali2_amd64.deb
 
-# penetration testers framework
-COPY ptf_bootstrap.sh /root/ptf_bootstrap.sh
-RUN chmod +x /root/ptf_bootstrap.sh && \
-    bash -c /root/ptf_bootstrap.sh && \
-    rm -f /root/ptf_bootstrap.sh
+############################################
+### Pentration Testers Framework Toolset ###
+#### Credit to TrustedSec for building  ####
+################ the basis #################
 
-#RUN mkdir -p /root/config
-#COPY ptf.config /root/config/
-#RUN pip install pexpect && \
-#    pip3 install pexpect && \
-#    cd ${HOME} && \
-#    git clone https://github.com/trustedsec/ptf.git && \
-#    cd ptf/ && \
-#    echo -en "use modules/install_update_all\nyes\n" | python3 ptf && \
-#    echo && \
-#    echo && \
-#    echo "** DONE **" && \
-#    echo "PTF is built and ready to use." && \
-#    ln -sf ${HOME}/ptf/ptf /usr/local/bin/ptf
+#################
+### AV Bypass ###
+#################
+ENV AVBYPASS ${HOME}/toolkit/av-bypass
+RUN mkdir -p ${AVBYPASS}
+
+# backdoor factory
+RUN cd ${AVBYPASS} && \
+    git clone https://github.com/secretsquirrel/the-backdoor-factory.git && \
+    cd backdoor-factory && \
+    chmod +x install.sh && \
+    install.sh
+
+# pyobfuscate
+RUN cd ${AVBYPASS} && \
+    git clone https://github.com/astrand/pyobfuscate.git && \
+    cd pyobfuscate && \
+    python setup.py install
+
+# shellter
+# RUN cd ${AVBYPASS} && \
+#     wget https://www.shellterproject.com/Downloads/Shellter/Latest/shellter.zip && \
+#     unzip -j -o shellter.zip && \
+#     rm shellter.zip && \
+#     echo '#/bin/sh > shellter && \
+#     echo pushd ${AVBYPASS}/shellter && \
+#     echo 'wine shellter.exe' >> shellter && \
+#     echo popd >> shellter && \
+#     chmod +x shellter
+
+# unlock
+RUN cd ${AVBYPASS} && \
+    git clone https://github.com/freshness79/unlock.git && \
+    
+##################
+### Code Audit ###
+##################
+ENV CODEAUDIT ${HOME}/toolkit/code-audit
+RUN mkdir -p ${CODEAUDIT}
+
+# flawfinder
+RUN cd ${CODEAUDIT} && \
+    apt-get install -y flawfinder
+
+# rough-auditing-tool-for-security
+RUN cd ${CODEAUDIT} && \
+    wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/rough-auditing-tool-for-security/rats-2.4.tgz && \
+    tar xzf rats-2.4.tgz && \
+    cd rats && \
+    ./configure && \
+    make -j4 && \
+    make install
+
+# splint
+RUN cd ${CODEAUDIT} && \
+    git clone https://github.com/splintchecker/splint.git && \
+    cd splint && \
+    ./configure && \
+    make -j4 && \
+    make install
+
+####################
+### Exploitation ###
+####################
+ENV EXPLOITATION ${HOME}/toolkit/exploitation
+RUN mkdir -p ${EXPLOITATION}
+
 
 ##########################
 ### Install Word Lists ###
