@@ -302,7 +302,7 @@ RUN mkdir -p ${AVBYPASS}
 # backdoor factory
 RUN cd ${AVBYPASS} && \
     git clone https://github.com/secretsquirrel/the-backdoor-factory.git && \
-    cd backdoor-factory && \
+    cd the-backdoor-factory && \
     chmod +x install.sh && \
     install.sh
 
