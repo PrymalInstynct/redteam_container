@@ -293,73 +293,73 @@ RUN cd ${HOME} && \
 #### Credit to TrustedSec for building  ####
 ################ the basis #################
 
-#################
-### AV Bypass ###
-#################
-ENV AVBYPASS ${HOME}/toolkit/av-bypass
-RUN mkdir -p ${AVBYPASS}
-
-# backdoor factory
-RUN cd ${AVBYPASS} && \
-    git clone https://github.com/secretsquirrel/the-backdoor-factory.git && \
-    cd ${AVBYPASS}/the-backdoor-factory && \
-    chmod +x install.sh && \
-    ./install.sh
-
-# pyobfuscate
-RUN cd ${AVBYPASS} && \
-    git clone https://github.com/astrand/pyobfuscate.git && \
-    cd ${AVBYPASS}/pyobfuscate && \
-    python setup.py install
-
-# shellter
-# RUN cd ${AVBYPASS} && \
-#     wget https://www.shellterproject.com/Downloads/Shellter/Latest/shellter.zip && \
-#     unzip -j -o shellter.zip && \
-#     rm shellter.zip && \
-#     echo '#/bin/sh > shellter && \
-#     echo pushd ${AVBYPASS}/shellter && \
-#     echo 'wine shellter.exe' >> shellter && \
-#     echo popd >> shellter && \
-#     chmod +x shellter
-
-# unlock
-RUN cd ${AVBYPASS} && \
-    git clone https://github.com/freshness79/unlock.git
-    
 ##################
-### Code Audit ###
+#### AV Bypass ###
 ##################
-ENV CODEAUDIT ${HOME}/toolkit/code-audit
-RUN mkdir -p ${CODEAUDIT}
-
-# flawfinder
-RUN cd ${CODEAUDIT} && \
-    apt-get install -y flawfinder
-
-# rough-auditing-tool-for-security
-RUN cd ${CODEAUDIT} && \
-    wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/rough-auditing-tool-for-security/rats-2.4.tgz && \
-    tar xzf rats-2.4.tgz && \
-    cd ${CODEAUDIT}/rats && \
-    ./configure && \
-    make -j4 && \
-    make install
-
-# splint
-RUN cd ${CODEAUDIT} && \
-    git clone https://github.com/splintchecker/splint.git && \
-    cd ${CODEAUDIT}/splint && \
-    ./configure && \
-    make -j4 && \
-    make install
-
-####################
-### Exploitation ###
-####################
-ENV EXPLOITATION ${HOME}/toolkit/exploitation
-RUN mkdir -p ${EXPLOITATION}
-
+#ENV AVBYPASS ${HOME}/toolkit/av-bypass
+#RUN mkdir -p ${AVBYPASS}
+#
+## backdoor factory
+#RUN cd ${AVBYPASS} && \
+#    git clone https://github.com/secretsquirrel/the-backdoor-factory.git && \
+#    cd ${AVBYPASS}/the-backdoor-factory && \
+#    chmod +x install.sh && \
+#    ./install.sh
+#
+## pyobfuscate
+#RUN cd ${AVBYPASS} && \
+#    git clone https://github.com/astrand/pyobfuscate.git && \
+#    cd ${AVBYPASS}/pyobfuscate && \
+#    python setup.py install
+#
+## shellter
+## RUN cd ${AVBYPASS} && \
+##     wget https://www.shellterproject.com/Downloads/Shellter/Latest/shellter.zip && \
+##     unzip -j -o shellter.zip && \
+##     rm shellter.zip && \
+##     echo '#/bin/sh > shellter && \
+##     echo pushd ${AVBYPASS}/shellter && \
+##     echo 'wine shellter.exe' >> shellter && \
+##     echo popd >> shellter && \
+##     chmod +x shellter
+#
+## unlock
+#RUN cd ${AVBYPASS} && \
+#    git clone https://github.com/freshness79/unlock.git
+#    
+###################
+#### Code Audit ###
+###################
+#ENV CODEAUDIT ${HOME}/toolkit/code-audit
+#RUN mkdir -p ${CODEAUDIT}
+#
+## flawfinder
+#RUN cd ${CODEAUDIT} && \
+#    apt-get install -y flawfinder
+#
+## rough-auditing-tool-for-security
+#RUN cd ${CODEAUDIT} && \
+#    wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/rough-auditing-tool-for-security/rats-2.4.tgz && \
+#    tar xzf rats-2.4.tgz && \
+#    cd ${CODEAUDIT}/rats && \
+#    ./configure && \
+#    make -j4 && \
+#    make install
+#
+## splint
+#RUN cd ${CODEAUDIT} && \
+#    git clone https://github.com/splintchecker/splint.git && \
+#    cd ${CODEAUDIT}/splint && \
+#    ./configure && \
+#    make -j4 && \
+#    make install
+#
+#####################
+#### Exploitation ###
+#####################
+#ENV EXPLOITATION ${HOME}/toolkit/exploitation
+#RUN mkdir -p ${EXPLOITATION}
+#
 
 ##########################
 ### Install Word Lists ###
